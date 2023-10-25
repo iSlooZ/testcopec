@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import Filter from '@/components/filter/Filter';
+import Filter from './components/filter/Filter';
+import ButtonMaps from './components/maps/ButtonMaps';
 
 export default function Bencina() {
   const [data, setData] = useState([]);
@@ -79,11 +80,14 @@ export default function Bencina() {
               className="bg-card-color flex flex-col justify-center items-left rounded-lg p-[20px]"
               key={estacion.id}
             >
-              <img
+              {estacion.combustibles.map(combustible => (
+                <img key={combustible.id}
                 className="w-[100px] p-[10px]"
-                src="http://api.bencinaenlinea.cl/storage/logo/1697478048_logo5.jpg"
+                src={estacion.logo}
                 alt=""
               />
+              ))}
+
               <div className="w-100 pl-[10px]">
                 <h3 className="card-data">Dirección: {estacion.direccion}</h3>
                 <h4 className="card-data">Región: {estacion.region}</h4>
@@ -98,6 +102,7 @@ export default function Bencina() {
                   <h3 className="card-data">Actualización: {combustible.actualizado}</h3>
                 </div>
               ))}
+              <ButtonMaps latitude={estacion.latitud} longitude={estacion.longitud} />
             </li>
           ))}
         </ul>
